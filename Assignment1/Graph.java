@@ -28,15 +28,15 @@ public class Graph extends CustomLinkedList{
 		for(int i=0; i<vertexNumber; i++) {
 			System.out.print("Enter data of any vertex: ");
 			// step 1: creating a linked list of adjacent nodes
-			int val = sc.nextInt();
+			String data = sc.next();
 			var ll = new CustomLinkedList();
-			ll.insertEnd(val);
+			ll.insertEnd(data);
 			
-			System.out.printf("Enter number of vertices adjacent to %d: ",val);
+			System.out.print("Enter number of vertices adjacent to "+data+": ");
 			int numOfAdjacentVertices = sc.nextInt();
-			System.out.printf("Enter data of vertices adjacent to %d(space-separated): ",val);
+			System.out.print("Enter data of vertices adjacent to "+data+": ");
 			for(int j=0; j<numOfAdjacentVertices; j++) {
-				int adjacentVertexData = sc.nextInt();
+				String adjacentVertexData = sc.next();
 				ll.insertEnd(adjacentVertexData);
 			}
 			
@@ -45,7 +45,7 @@ public class Graph extends CustomLinkedList{
 		}
 	}
 	
-	public void bfsNonRecursive(int dataOfStartNode) {
+	public void bfsNonRecursive(String dataOfStartNode) {
 		
 		Node node = findNodeByData(dataOfStartNode);
 		if(node == null) {
@@ -55,7 +55,7 @@ public class Graph extends CustomLinkedList{
 		
 	    Queue<Node> queue = new LinkedList<>();
 	    // Use Integer to track visited nodes by their data
-	    ArrayList<Integer> visited = new ArrayList<>();
+	    ArrayList<String> visited = new ArrayList<>();
 
 
 	    queue.add(node);
@@ -76,7 +76,7 @@ public class Graph extends CustomLinkedList{
 	    }
 	}
 	
-	public void dfsNonRecursive(int dataOfStartNode) {
+	public void dfsNonRecursive(String dataOfStartNode) {
 		
 		Node node = findNodeByData(dataOfStartNode);
 		if(node == null) {
@@ -85,7 +85,7 @@ public class Graph extends CustomLinkedList{
 		}
 
 		Stack<Node> s = new Stack<>();
-		ArrayList<Integer> visited = new ArrayList<>();
+		ArrayList<String> visited = new ArrayList<>();
 		
 		s.add(node);
 		visited.add(node.data);
@@ -106,13 +106,13 @@ public class Graph extends CustomLinkedList{
 		}
 	}
 	
-	public void dfsRecCaller(int startNodeData) {
-		ArrayList<Integer> visited = new ArrayList<>();
+	public void dfsRecCaller(String startNodeData) {
+		ArrayList<String> visited = new ArrayList<>();
 		dfsRecursive(startNodeData, adList, visited);
 	}
 	
 	// main dfs Recursive function
-	private void dfsRecursive(int val, ArrayList<Node> adjList, ArrayList<Integer> vis) {
+	private void dfsRecursive(String val, ArrayList<Node> adjList, ArrayList<String> vis) {
 		vis.add(val);
 		System.out.print(val+" ");
 		Node head = findNodeByData(val);
@@ -125,7 +125,7 @@ public class Graph extends CustomLinkedList{
 		}
 	}
 	
-	public void bfsRecCaller(int dataOfStartNode) {
+	public void bfsRecCaller(String dataOfStartNode) {
 		Node node = findNodeByData(dataOfStartNode);
 		if(node == null) {
 			System.out.println("Node with given data cannot be found.");
@@ -134,7 +134,7 @@ public class Graph extends CustomLinkedList{
 		
 	    Queue<Node> queue = new LinkedList<>();
 	    // Use Integer to track visited nodes by their data
-	    ArrayList<Integer> visited = new ArrayList<>();
+	    ArrayList<String> visited = new ArrayList<>();
 
 
 	    queue.add(node);
@@ -143,7 +143,7 @@ public class Graph extends CustomLinkedList{
 	    
 	}
 	
-	private void bfsRecursive(Queue<Node> que, ArrayList<Integer> vis) {
+	private void bfsRecursive(Queue<Node> que, ArrayList<String> vis) {
 		if(que.isEmpty()) {
 			return;
 		}else {
@@ -162,9 +162,9 @@ public class Graph extends CustomLinkedList{
 	}
 
 	// Helper method to find a node by its data
-	private Node findNodeByData(int data) {
+	private Node findNodeByData(String data) {
 	    for (Node n : adList) {
-	        if (n.data == data) {
+	        if (n.data.equals(data)) {
 	            return n;
 	        }
 	    }
@@ -182,7 +182,45 @@ public class Graph extends CustomLinkedList{
 		var gh = new Graph();
 		gh.constructGraph();
 		gh.displayAdjacencyList();
-		gh.bfsRecCaller(1);
+		System.out.print("BFS Recursive: ");
+		gh.bfsRecCaller("A");
+		System.out.print("\nDFS Recursive: ");
+		gh.dfsRecCaller("A");
+		System.out.print("\nBFS Non-Recursive: ");
+		gh.bfsNonRecursive("A");
+		System.out.print("\nDFS Non-Recursive: ");
+		gh.dfsNonRecursive("A");
 	}
 }
+/*
+Enter the number of vertices in your graph: 6
+Enter data of any vertex: A
+Enter number of vertices adjacent to A: 2
+Enter data of vertices adjacent to A: B C
+Enter data of any vertex: B
+Enter number of vertices adjacent to B: 2
+Enter data of vertices adjacent to B: A C
+Enter data of any vertex: C
+Enter number of vertices adjacent to C: 5
+Enter data of vertices adjacent to C: A B D E F
+Enter data of any vertex: D
+Enter number of vertices adjacent to D: 2
+Enter data of vertices adjacent to D: C E
+Enter data of any vertex: E
+Enter number of vertices adjacent to E: 3
+Enter data of vertices adjacent to E: C D F
+Enter data of any vertex: F
+Enter number of vertices adjacent to F: 2
+Enter data of vertices adjacent to F: C E
+A-> B-> C-> /
+B-> A-> C-> /
+C-> A-> B-> D-> E-> F-> /
+D-> C-> E-> /
+E-> C-> D-> F-> /
+F-> C-> E-> /
+BFS Recursive: A B C D E F 
+DFS Recursive: A B C D E F 
+BFS Non-Recursive: A B C D E F 
+DFS Non-Recursive: A C F E D B 
+*/
 

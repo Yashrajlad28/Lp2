@@ -10,12 +10,12 @@ public class CustomLinkedList {
 		this.tail = null;
 	}
 	
-	public void insertEnd(int val) {
+	public void insertEnd(String data) {
 		if(head == null) {
-			head = new Node(val);
+			head = new Node(data);
 			tail = head;
 		}else {
-			tail.next = new Node(val);
+			tail.next = new Node(data);
 			tail = tail.next;
 		}
 	}

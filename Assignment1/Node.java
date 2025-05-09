@@ -1,10 +1,10 @@
 package tools;
 
 public class Node {
-	public int data;
+	public String data;
 	public Node next;
 	
-	public Node(int data) {
+	public Node(String data) {
 		this.data = data;
 		this.next = null;
 	}
